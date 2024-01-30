@@ -1,0 +1,7 @@
+services:
+  invt-leggi-scrivi-postgres:
+    container_name: invt-leggi-scrivi-postgres
+    image: misterdelle/invt-leggi-scrivi-postgres
+    restart: unless-stopped
+    volumes:
+    - "./.env:/.env"
