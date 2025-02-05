@@ -9,8 +9,8 @@ import (
 	"time"
 
 	_ "github.com/jackc/pgconn"
-	_ "github.com/jackc/pgx/v4"
-	_ "github.com/jackc/pgx/v4/stdlib"
+	_ "github.com/jackc/pgx/v5"
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/joho/godotenv"
 	"github.com/misterdelle/invt_leggi_scrivi_postgres/pkg/data"
 	"github.com/misterdelle/invt_leggi_scrivi_postgres/pkg/db"
@@ -45,7 +45,7 @@ func init() {
 func main() {
 	connSourceRDBMS, err := app.connectToSourceDB()
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Error %s", err))
+		log.Fatalf("Error %s", err)
 	}
 	defer connSourceRDBMS.Close()
 
@@ -53,7 +53,7 @@ func main() {
 
 	connTargetRDBMS, err := app.connectToTargetDB()
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Error %s", err))
+		log.Fatalf("Error %s", err)
 	}
 	defer connTargetRDBMS.Close()
 
@@ -70,7 +70,7 @@ func main() {
 				case <-done:
 					return
 				case t := <-ticker.C:
-					log.Println(fmt.Sprintf("Tick at %s", t))
+					log.Printf("Tick at %s\n", t)
 					app.doAll()
 
 				}
@@ -93,7 +93,7 @@ func (app *application) serve() {
 		Handler: app.routes(),
 	}
 
-	log.Println(fmt.Sprintf("The WEB server is listening on: 0.0.0.0:%s", app.WebPort))
+	log.Printf("The WEB server is listening on: 0.0.0.0:%s\n", app.WebPort)
 	err := srv.ListenAndServe()
 	if err != nil {
 		panic(err)

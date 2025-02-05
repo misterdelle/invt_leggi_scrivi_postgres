@@ -10,7 +10,7 @@ import (
 
 var counts int64
 
-const dbTimeout = time.Second * 3
+// const dbTimeout = time.Second * 3
 
 func openDB(dsn string) (*sql.DB, error) {
 	pgUrl, err := pq.ParseURL(dsn)

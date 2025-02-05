@@ -3,10 +3,10 @@ APPLICATION_NAME ?= invt-leggi-scrivi-postgres
 GIT_HASH ?= $(shell git log --format="%h" -n 1)
 
 build:
-	go build -o ${APPLICATION_NAME}
+	go build -o build/${APPLICATION_NAME}
 
 build-arm:
-	env GOOS=linux GOARCH=arm GOARM=5 go build -o ${APPLICATION_NAME}-arm
+	env GOOS=linux GOARCH=arm GOARM=5 go build -o build/${APPLICATION_NAME}-arm
 
 build-docker-amd:
 	docker build --tag ${DOCKER_USERNAME}/${APPLICATION_NAME}:${GIT_HASH} .
